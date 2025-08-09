@@ -28,9 +28,22 @@ This MCP server enables AI assistants to interact with your Firefly III instance
 - A running Firefly III instance
 - Firefly III API token (Personal Access Token)
 
-## Installation
+## Setup
 
-### Using UV (Recommended)
+### Option 1: Direct from GitHub (Recommended)
+
+!!! tip "No Local Setup Required"
+    Your MCP client can run the server directly from GitHub - no cloning or local Python setup needed!
+
+Configure your MCP client to use:
+- **Command**: `uvx`
+- **Args**: `["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"]`
+
+### Option 2: Local Development Setup
+
+For development, testing, or customization:
+
+#### Using UV (Recommended)
 
 ```bash
 # Clone the repository
@@ -39,12 +52,9 @@ cd firefly-mcp
 
 # Install dependencies
 uv sync
-
-# Install in development mode
-uv pip install -e .
 ```
 
-### Using Pip
+#### Using Pip
 
 ```bash
 # Clone the repository
@@ -58,6 +68,11 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 # Install dependencies
 pip install -e .
 ```
+
+### Option 3: MCP Registry (Future)
+
+!!! note "Coming Soon"
+    We plan to publish this server to an MCP registry for even easier installation.
 
 ## Configuration
 
@@ -103,17 +118,30 @@ Add the server to your Claude Desktop configuration file:
 **On macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 **On Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
+**Option 1: Direct from GitHub**
+```json
+{
+  "mcpServers": {
+    "firefly-mcp": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"],
+      "env": {
+        "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
+        "FIREFLY_API_TOKEN": "your_token_here",
+        "FIREFLY_ENABLED_ENTITIES": "all"
+      }
+    }
+  }
+}
+```
+
+**Option 2: Local Development**
 ```json
 {
   "mcpServers": {
     "firefly-mcp": {
       "command": "uv",
-      "args": [
-        "--directory",
-        "/path/to/firefly-mcp",
-        "run",
-        "firefly-mcp"
-      ],
+      "args": ["--directory", "/absolute/path/to/firefly-mcp", "run", "firefly-mcp"],
       "env": {
         "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
         "FIREFLY_API_TOKEN": "your_token_here",
@@ -128,17 +156,30 @@ Add the server to your Claude Desktop configuration file:
 
 For IDEs, add the MCP server configuration to your workspace or global settings:
 
+**Option 1: Direct from GitHub**
+```json
+{
+  "mcp.servers": {
+    "firefly-mcp": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"],
+      "env": {
+        "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
+        "FIREFLY_API_TOKEN": "your_token_here",
+        "FIREFLY_ENABLED_ENTITIES": "all"
+      }
+    }
+  }
+}
+```
+
+**Option 2: Local Development**
 ```json
 {
   "mcp.servers": {
     "firefly-mcp": {
       "command": "uv",
-      "args": [
-        "--directory",
-        "/path/to/firefly-mcp", 
-        "run",
-        "firefly-mcp"
-      ],
+      "args": ["--directory", "/absolute/path/to/firefly-mcp", "run", "firefly-mcp"],
       "env": {
         "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
         "FIREFLY_API_TOKEN": "your_token_here",

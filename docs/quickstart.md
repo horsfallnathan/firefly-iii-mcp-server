@@ -11,38 +11,66 @@ Get your Firefly III MCP server running in minutes!
 
 ## 5-Minute Setup
 
-### 1. Install the MCP Server
+### 1. Choose Your Setup Method
 
-```bash
-# Clone and install
-git clone https://github.com/yourusername/firefly-mcp.git
-cd firefly-mcp
-uv sync
-```
+=== "Direct from GitHub (Easiest)"
+
+    No local setup required! Skip to step 3 and use this configuration:
+    
+    ```json
+    {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"]
+    }
+    ```
+
+=== "Local Development"
+
+    ```bash
+    # Clone and setup
+    git clone https://github.com/horsfallnathan/firefly-iii-mcp-server.git
+    cd firefly-mcp
+    uv sync
+    ```
 
 ### 2. Configure Your Connection
 
-Create `.env` file:
+=== "Direct from GitHub"
 
-```bash
-# Copy the example
-cp .env.example .env
+    Configuration is done directly in your MCP client config (step 4). No `.env` file needed!
 
-# Edit with your details
-FIREFLY_API_URL=https://your-firefly-instance.com/api/v1
-FIREFLY_API_TOKEN=your_token_here
-FIREFLY_ENABLED_ENTITIES=all
-```
+=== "Local Development"
 
-### 3. Test the Server
+    Create `.env` file:
 
-```bash
-# Quick test
-uv run firefly-mcp --help
+    ```bash
+    # Copy the example
+    cp .env.example .env
 
-# Interactive test with MCP Inspector
-npx @modelcontextprotocol/inspector uv run firefly-mcp
-```
+    # Edit with your details
+    FIREFLY_API_URL=https://your-firefly-instance.com/api/v1
+    FIREFLY_API_TOKEN=your_token_here
+    FIREFLY_ENABLED_ENTITIES=all
+    ```
+
+### 3. Test the Server (Optional)
+
+=== "Direct from GitHub"
+
+    ```bash
+    # Test with MCP Inspector
+    npx @modelcontextprotocol/inspector uvx --from git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git firefly-mcp
+    ```
+
+=== "Local Development"
+
+    ```bash
+    # Quick test
+    uv run firefly-mcp --help
+
+    # Interactive test with MCP Inspector
+    npx @modelcontextprotocol/inspector uv run firefly-mcp
+    ```
 
 ### 4. Configure Your MCP Client
 
@@ -50,41 +78,81 @@ npx @modelcontextprotocol/inspector uv run firefly-mcp
 
     Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
-    ```json
-    {
-      "mcpServers": {
-        "firefly-mcp": {
-          "command": "uv",
-          "args": ["--directory", "/path/to/firefly-mcp", "run", "firefly-mcp"],
-          "env": {
-            "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
-            "FIREFLY_API_TOKEN": "your_token_here",
-            "FIREFLY_ENABLED_ENTITIES": "all"
+    === "Direct from GitHub"
+
+        ```json
+        {
+          "mcpServers": {
+            "firefly-mcp": {
+              "command": "uvx",
+              "args": ["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"],
+              "env": {
+                "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
+                "FIREFLY_API_TOKEN": "your_token_here",
+                "FIREFLY_ENABLED_ENTITIES": "all"
+              }
+            }
           }
         }
-      }
-    }
-    ```
+        ```
+
+    === "Local Development"
+
+        ```json
+        {
+          "mcpServers": {
+            "firefly-mcp": {
+              "command": "uv",
+              "args": ["--directory", "/absolute/path/to/firefly-mcp", "run", "firefly-mcp"],
+              "env": {
+                "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
+                "FIREFLY_API_TOKEN": "your_token_here",
+                "FIREFLY_ENABLED_ENTITIES": "all"
+              }
+            }
+          }
+        }
+        ```
 
 === "Cursor IDE"
 
     Add to workspace/global settings:
 
-    ```json
-    {
-      "mcp.servers": {
-        "firefly-mcp": {
-          "command": "uv",
-          "args": ["--directory", "/path/to/firefly-mcp", "run", "firefly-mcp"],
-          "env": {
-            "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
-            "FIREFLY_API_TOKEN": "your_token_here",
-            "FIREFLY_ENABLED_ENTITIES": "all"
+    === "Direct from GitHub"
+
+        ```json
+        {
+          "mcp.servers": {
+            "firefly-mcp": {
+              "command": "uvx",
+              "args": ["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"],
+              "env": {
+                "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
+                "FIREFLY_API_TOKEN": "your_token_here",
+                "FIREFLY_ENABLED_ENTITIES": "all"
+              }
+            }
           }
         }
-      }
-    }
-    ```
+        ```
+
+    === "Local Development"
+
+        ```json
+        {
+          "mcp.servers": {
+            "firefly-mcp": {
+              "command": "uv",
+              "args": ["--directory", "/absolute/path/to/firefly-mcp", "run", "firefly-mcp"],
+              "env": {
+                "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
+                "FIREFLY_API_TOKEN": "your_token_here",
+                "FIREFLY_ENABLED_ENTITIES": "all"
+              }
+            }
+          }
+        }
+        ```
 
 ### 5. Start Using It!
 
@@ -151,13 +219,6 @@ FIREFLY_DISABLE_SSL_VERIFY=true
 
 ## What's Next?
 
-- 📚 [Complete Configuration Guide](configuration.md)
-- 🔧 [MCP Client Integration Setup](integrations.md)
+- 📚 [Complete Setup Guide](setup.md)
+- 🔧 [Configuration Guide](configuration.md)
 - 🎯 [Available Operations Reference](api/operations.md)
-- 🐛 [Detailed Troubleshooting](troubleshooting.md)
-
-## Need Help?
-
-- 💬 [GitHub Discussions](https://github.com/yourusername/firefly-mcp/discussions)
-- 🐛 [Report Issues](https://github.com/yourusername/firefly-mcp/issues)
-- 📖 [Full Documentation](https://yourusername.github.io/firefly-mcp/)

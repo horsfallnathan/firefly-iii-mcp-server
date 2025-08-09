@@ -1,10 +1,10 @@
 site_name: Firefly III MCP Server
 site_description: Model Context Protocol server for Firefly III personal finance management
 site_author: Firefly MCP Team
-site_url: https://yourusername.github.io/firefly-mcp/
+site_url: https://horsfallnathan.github.io/firefly-iii-mcp-server/
 
-repo_name: yourusername/firefly-mcp
-repo_url: https://github.com/yourusername/firefly-mcp
+repo_name: horsfallnathan/firefly-iii-mcp-server
+repo_url: https://github.com/horsfallnathan/firefly-iii-mcp-server
 edit_uri: edit/main/docs/
 
 theme:
@@ -60,27 +60,18 @@ plugins:
 nav:
   - Home: index.md
   - Getting Started:
-    - Installation: installation.md
+    - Setup: setup.md
     - Configuration: configuration.md
     - Quick Start: quickstart.md
   - MCP Integration: integrations.md
   - API Reference:
     - Available Operations: api/operations.md
-    - Account Management: api/accounts.md
-    - Transactions: api/transactions.md
-    - Budgets: api/budgets.md
-    - Categories & Tags: api/categories-tags.md
-    - Bills & Rules: api/bills-rules.md
   - Development:
-    - Contributing: development/contributing.md
-    - Testing: development/testing.md
     - MCP Inspector: development/mcp-inspector.md
-  - Troubleshooting: troubleshooting.md
-  - License: license.md
 
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/yourusername/firefly-mcp
+      link: https://github.com/horsfallnathan/firefly-iii-mcp-server
   version:
     provider: mike
