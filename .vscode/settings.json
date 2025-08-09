@@ -1,0 +1,12 @@
+{
+    // Project-specific Python path for imports
+    "python.analysis.extraPaths": [
+        "./src"
+    ],
+    // Enable strict type checking for this project
+    "python.analysis.typeCheckingMode": "strict",
+    "cursorpyright.analysis.extraPaths": [
+        "./src"
+    ],
+    "cursorpyright.analysis.typeCheckingMode": "strict"
+}
