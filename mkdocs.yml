@@ -60,7 +60,6 @@ plugins:
 nav:
   - Home: index.md
   - Getting Started:
-    - Setup: setup.md
     - Configuration: configuration.md
     - Quick Start: quickstart.md
   - MCP Integration: integrations.md
