@@ -2,225 +2,33 @@
 
 A Model Context Protocol (MCP) server that provides programmatic access to [Firefly III](https://www.firefly-iii.org/) personal finance management through Claude Desktop, Cursor IDE, and other MCP-compatible AI assistants.
 
+## 📚 Documentation
+
+**📖 [Full Documentation](https://horsfallnathan.github.io/firefly-iii-mcp-server/)**
+
 ## Overview
 
 This MCP server enables AI assistants to interact with your Firefly III instance, allowing you to manage your personal finances through natural language conversations. You can:
 
-- **Manage accounts**: List, create, update, and delete asset, expense, revenue, and liability accounts
-- **Handle transactions**: Create, retrieve, update, and delete financial transactions
-- **Budget management**: Work with budgets, budget limits, and track spending
-- **Categorization**: Manage transaction categories and tags
-- **Bill tracking**: Handle recurring bills and payment monitoring
-- **Piggy banks**: Manage savings goals and track progress
-- **Rules & automation**: Configure transaction rules and rule groups
+- **💰 Manage accounts**: List, create, update, and delete asset, expense, revenue, and liability accounts
+- **📊 Handle transactions**: Create, retrieve, update, and delete financial transactions
+- **💳 Budget management**: Work with budgets, budget limits, and track spending
+- **🏷️ Categorization**: Manage transaction categories and tags
+- **💸 Bill tracking**: Handle recurring bills and payment monitoring
+- **🐷 Piggy banks**: Manage savings goals and track progress
+- **⚙️ Rules & automation**: Configure transaction rules and rule groups
 
-## Features
+## Key Features
 
-- **MCP Integration**: Works seamlessly with Claude Desktop, Cursor IDE, and other MCP clients
-- **Comprehensive API coverage**: Supports most Firefly III v1 API endpoints
-- **Flexible operation modes**: Choose between consolidated tools or direct API access
-- **Type-safe operations**: Full Pydantic model validation for all requests/responses
-- **Entity filtering**: Enable only the Firefly III entities you need
+- **🤖 AI Integration**: Works seamlessly with Claude Desktop, Cursor IDE, and other MCP clients
+- **💡 Comprehensive API**: Supports most Firefly III v1 API endpoints
+- **⚡ Flexible modes**: Choose between consolidated tools or direct API access
+- **🔒 Type-safe**: Full Pydantic model validation for all requests/responses
+- **🎯 Configurable**: Enable only the Firefly III entities you need
 
-## Requirements
+## Quick Example
 
-- Python 3.12+
-- A running Firefly III instance
-- Firefly III API token (Personal Access Token)
-
-## Setup
-
-### Option 1: Direct from GitHub (Recommended)
-
-!!! tip "No Local Setup Required"
-    Your MCP client can run the server directly from GitHub - no cloning or local Python setup needed!
-
-Configure your MCP client to use:
-- **Command**: `uvx`
-- **Args**: `["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"]`
-
-### Option 2: Local Development Setup
-
-For development, testing, or customization:
-
-#### Using UV (Recommended)
-
-```bash
-# Clone the repository
-git clone <repository-url>
-cd firefly-mcp
-
-# Install dependencies
-uv sync
-```
-
-#### Using Pip
-
-```bash
-# Clone the repository
-git clone <repository-url>
-cd firefly-mcp
-
-# Create virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install dependencies
-pip install -e .
-```
-
-### Option 3: MCP Registry (Future)
-
-!!! note "Coming Soon"
-    We plan to publish this server to an MCP registry for even easier installation.
-
-## Configuration
-
-Create a `.env` file in the project root:
-
-```bash
-# Required: Your Firefly III API URL
-FIREFLY_API_URL=https://your-firefly-instance.com/api/v1
-
-# Required: Your Personal Access Token from Firefly III
-FIREFLY_API_TOKEN=your_token_here
-
-# Optional: Disable SSL verification for development (default: false)
-FIREFLY_DISABLE_SSL_VERIFY=false
-
-# Optional: Enable direct mode for individual tools (default: false)
-FIREFLY_DIRECT_MODE=false
-
-# Optional: Comma-separated list of entities to enable (default: account)
-# Available: account,transaction,budget,category,tag,rule,rule_group,bill,piggy_bank
-# Use "all" to enable everything
-FIREFLY_ENABLED_ENTITIES=all
-
-# Optional: Logging level (default: INFO)
-FIREFLY_LOG_LEVEL=INFO
-```
-
-### Getting a Firefly III API Token
-
-1. Log into your Firefly III instance
-2. Go to **Options** → **Profile** → **OAuth**
-3. Click **Create New Token**
-4. Give it a descriptive name (e.g., "MCP Server")
-5. Copy the generated token to your `.env` file
-
-## Usage
-### Integrating with MCP Clients
-
-#### Claude Desktop
-
-Add the server to your Claude Desktop configuration file:
-
-**On macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
-**On Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
-
-**Option 1: Direct from GitHub**
-```json
-{
-  "mcpServers": {
-    "firefly-mcp": {
-      "command": "uvx",
-      "args": ["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"],
-      "env": {
-        "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
-        "FIREFLY_API_TOKEN": "your_token_here",
-        "FIREFLY_ENABLED_ENTITIES": "all"
-      }
-    }
-  }
-}
-```
-
-**Option 2: Local Development**
-```json
-{
-  "mcpServers": {
-    "firefly-mcp": {
-      "command": "uv",
-      "args": ["--directory", "/absolute/path/to/firefly-mcp", "run", "firefly-mcp"],
-      "env": {
-        "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
-        "FIREFLY_API_TOKEN": "your_token_here",
-        "FIREFLY_ENABLED_ENTITIES": "all"
-      }
-    }
-  }
-}
-```
-
-#### VSCode/ Cursor IDE
-
-For IDEs, add the MCP server configuration to your workspace or global settings:
-
-**Option 1: Direct from GitHub**
-```json
-{
-  "mcp.servers": {
-    "firefly-mcp": {
-      "command": "uvx",
-      "args": ["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"],
-      "env": {
-        "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
-        "FIREFLY_API_TOKEN": "your_token_here",
-        "FIREFLY_ENABLED_ENTITIES": "all"
-      }
-    }
-  }
-}
-```
-
-**Option 2: Local Development**
-```json
-{
-  "mcp.servers": {
-    "firefly-mcp": {
-      "command": "uv",
-      "args": ["--directory", "/absolute/path/to/firefly-mcp", "run", "firefly-mcp"],
-      "env": {
-        "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
-        "FIREFLY_API_TOKEN": "your_token_here",
-        "FIREFLY_ENABLED_ENTITIES": "all"
-      }
-    }
-  }
-}
-```
-
-#### Other MCP Clients
-
-For other MCP-compatible clients, configure them to run the server with:
-- **Command**: `uv run firefly-mcp` (or your preferred execution method)
-- **Working Directory**: Path to this project
-- **Environment Variables**: Your Firefly III configuration
-
-### Operation Modes
-
-#### Consolidated Mode (Default)
-
-Provides three meta-tools for dynamic operation:
-
-- `firefly_execute(entity, operation, params)` - Execute any Firefly III operation
-- `firefly_list_operations(entity?)` - List available operations
-- `firefly_get_schema(entity, operation)` - Get parameter schema for operations
-
-#### Direct Mode
-
-Set `FIREFLY_DIRECT_MODE=true` to register individual tools for each operation:
-
-- `account_list(limit?, page?)` - List accounts
-- `account_get(id)` - Get account details
-- `transaction_create(transactions)` - Create transactions
-- And many more...
-
-### Using with AI Assistants
-
-Once configured, you can interact with your Firefly III data through natural language in your MCP client:
-
-#### Examples with Claude Desktop
+Once set up, you can interact with your finances naturally:
 
 ```
 "Show me my account balances"
@@ -229,78 +37,140 @@ Once configured, you can interact with your Firefly III data through natural lan
 "List all my transactions from last week"
 "Create a new savings goal for a vacation with a target of $2000"
 "Show me all bills that are due this month"
-```
-
-#### Examples with Cursor IDE
-
-In Cursor, you can ask the AI assistant to help manage your finances:
-
-```
 "Help me create a transaction rule that automatically categorizes Starbucks purchases as 'Coffee'"
-"Show me a summary of my spending by category for the last 30 days"
 "Create a new budget category for 'Home Improvement' with a $500 monthly limit"
 ```
 
-### Technical Usage (Direct API calls)
+## Requirements
 
-For direct programmatic access, you can also use the underlying operations:
+- Python 3.12+
+- A running Firefly III instance
+- Firefly III API token (Personal Access Token)
 
-```python
-# List all accounts
-firefly_execute("account", "list", {"limit": 10})
+## 🚀 Quick Setup
 
-# Get specific account
-firefly_execute("account", "get", {"id": "123"})
+### Local Installation
 
-# Create a new transaction
-firefly_execute("transaction", "create", {
-    "transactions": [{
-        "type": "withdrawal",
-        "date": "2024-01-01T00:00:00+00:00",
-        "amount": "25.50",
-        "description": "Coffee",
-        "source_name": "Checking Account",
-        "destination_name": "Coffee Shop"
-    }]
-})
-```
-
-## Development
-### Using MCP Inspector
-
-For development and debugging, use the [MCP Inspector](https://github.com/modelcontextprotocol/inspector) to test your server interactively:
+Clone and set up the project locally:
 
 ```bash
-# Install MCP Inspector (if not already installed)
-npx @modelcontextprotocol/inspector
+# Clone the repository
+git clone https://github.com/horsfallnathan/firefly-iii-mcp-server.git firefly-mcp
+cd firefly-mcp
 
-# Run with your Firefly MCP server
+# Install with UV (recommended)
+uv sync
+
+# Or with pip
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -e .
+```
+
+### Configuration
+
+Create a `.env` file in the project root:
+
+```bash
+# Required: Your Firefly III API URL and token
+FIREFLY_API_URL=https://your-firefly-instance.com/api/v1
+FIREFLY_API_TOKEN=your_token_here
+
+# Optional: Enable all entities (default: just accounts). Requires `FIREFLY_DIRECT_MODE=true`
+# Enabling all entities would lead to about 76 tools being registered and most clients suggest a maximum of 40 tools
+FIREFLY_ENABLED_ENTITIES=all
+
+# When false, the server will register consolidated tools for dynamic operation. When true, it will register individual tools for each operation
+FIREFLY_DIRECT_MODE=false
+
+FIREFLY_LOG_LEVEL=INFO
+```
+
+**🔑 Getting a Firefly III API Token:**
+1. Log into your Firefly III instance
+2. Go to **Options** → **Profile** → **OAuth**
+3. Click **Create New Token**
+4. Give it a descriptive name (e.g., "MCP Server")
+5. Copy the generated token to your `.env` file
+
+**📖 [See full configuration guide](https://horsfallnathan.github.io/firefly-iii-mcp-server/configuration/)**
+
+## 🔌 MCP Client Integration
+
+### Cursor IDE
+
+Add to your workspace or global settings:
+
+```json
+{
+  "mcp.servers": {
+    "firefly-mcp": {
+      "command": "uv",
+      "args": ["--directory", "/absolute/path/to/firefly-mcp", "run", "firefly-mcp"],
+      "env": {
+        "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
+        "FIREFLY_API_TOKEN": "your_token_here",
+        "FIREFLY_ENABLED_ENTITIES": "all",
+        "FIREFLY_DIRECT_MODE": "false"
+      }
+    }
+  }
+}
+```
+
+### VSCode
+
+Create an `mcp.json` file in your project root or workspace:
+
+```json
+{
+  "servers": {
+    "firefly-mcp": {
+      "command": "uv",
+      "args": ["--directory", "/absolute/path/to/firefly-mcp", "run", "firefly-mcp"],
+      "env": {
+        "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
+        "FIREFLY_API_TOKEN": "your_token_here",
+        "FIREFLY_ENABLED_ENTITIES": "all",
+        "FIREFLY_DIRECT_MODE": "false"
+      }
+    }
+  }
+}
+```
+## Operation Modes
+
+### Consolidated Mode (Default)
+Provides three meta-tools for dynamic operation:
+- `firefly_execute(entity, operation, params)` - Execute any Firefly III operation
+- `firefly_list_operations(entity?)` - List available operations  
+- `firefly_get_schema(entity, operation)` - Get parameter schema for operations
+
+### Direct Mode
+Set `FIREFLY_DIRECT_MODE=true` to register individual tools for each operation:
+- `account_list(limit?, page?)` - List accounts
+- `account_get(id)` - Get account details
+- `transaction_create(transactions)` - Create transactions
+- And many more...
+
+## 🛠️ Development & Testing
+
+### Using MCP Inspector
+
+For development and debugging, use the [MCP Inspector](https://github.com/modelcontextprotocol/inspector):
+
+```bash
+# Install and run MCP Inspector
 npx @modelcontextprotocol/inspector uv run firefly-mcp
 ```
 
 The MCP Inspector provides a web interface where you can:
-- Test all available tools and operations
-- Inspect request/response schemas
-- Debug server connectivity and authentication
-- Validate your Firefly III configuration
+- 🧪 Test all available tools and operations
+- 🔍 Inspect request/response schemas  
+- 🐛 Debug server connectivity and authentication
+- ✅ Validate your Firefly III configuration
 
-### Direct Python Debugging
-
-For direct Python debugging and development:
-
-```bash
-# Using UV (recommended)
-uv run firefly-mcp
-
-# Using the Makefile
-make app
-
-# Development with .env file
-make dev
-
-# Direct Python execution
-python -m firefly_mcp.main
-```
+**📖 [See full development guide](https://horsfallnathan.github.io/firefly-iii-mcp-server/development/mcp-inspector/)**
 
 ### Running Tests
 
@@ -308,45 +178,26 @@ python -m firefly_mcp.main
 # Run all tests
 make test-all
 
-# Run only unit tests
-make test-unit
-
-# Run only integration tests
-make test-integration
-
 # Run with coverage
 make coverage
 
-# Run specific tests with custom args
-make test-unit ARGS="--maxfail=1 -v"
+# Run specific test types
+make test-unit
+make test-integration
 ```
 
-### Development Server
+### Local Development
 
 ```bash
-# Run with development environment
+# Development with .env file
 make dev
 
-# Clean generated files
-make clean
+# Direct execution
+uv run firefly-mcp
+python -m firefly_mcp.main
 ```
 
-### Project Structure
-
-```
-firefly-mcp/
-├── src/firefly_mcp/
-│   ├── core/           # Core business logic for each entity
-│   ├── lib/            # Shared utilities (HTTP client, exceptions)
-│   ├── models/         # Pydantic models and schemas
-│   ├── tools/          # MCP tool implementations
-│   └── main.py         # Entry point
-├── tests/              # Test suite
-├── .env.example        # Environment template
-└── pyproject.toml      # Project configuration
-```
-
-## Environment Variables Reference
+## 📋 Environment Variables Reference
 
 | Variable | Default | Description |
 |----------|---------|-------------|
@@ -357,32 +208,13 @@ firefly-mcp/
 | `FIREFLY_ENABLED_ENTITIES` | `account` | Comma-separated list of entities to enable |
 | `FIREFLY_LOG_LEVEL` | `INFO` | Logging level (DEBUG, INFO, WARNING, ERROR) |
 
-## Troubleshooting
 
-### Connection Issues
-
-- Verify your `FIREFLY_API_URL` is correct and accessible
-- Check that your API token is valid and has appropriate permissions
-- For development with self-signed certificates, set `FIREFLY_DISABLE_SSL_VERIFY=true`
-
-### Entity Not Available
-
-- Check that the entity is included in `FIREFLY_ENABLED_ENTITIES`
-- Verify your Firefly III version supports the required API endpoints
-
-### Operation Failures
-
-- Use `firefly_get_schema(entity, operation)` to check required parameters
-- Enable DEBUG logging with `FIREFLY_LOG_LEVEL=DEBUG` for detailed error information
-
-## API Compatibility
+## 🎯 API Compatibility
 
 This MCP server is compatible with Firefly III API v1. It has been tested with:
+- ✅ Firefly III v6.x
 
-- Firefly III v6.x
-- Firefly III v5.x (most features)
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -391,7 +223,7 @@ This MCP server is compatible with Firefly III API v1. It has been tested with:
 5. Run the test suite
 6. Submit a pull request
 
-## License
+## 📄 License
 
 This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). See the [LICENSE](LICENSE) file for details.
 

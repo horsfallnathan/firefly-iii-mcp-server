@@ -11,28 +11,49 @@ Get your Firefly III MCP server running in minutes!
 
 ## 5-Minute Setup
 
-### 1. Download the code
+### 1. Local Installation
+
+Clone and set up the project locally:
 
     ```bash
-    # Clone and setup
+    # Clone the repository
     git clone https://github.com/horsfallnathan/firefly-iii-mcp-server.git firefly-mcp
     cd firefly-mcp
+
+    # Install with UV (recommended)
     uv sync
+
+    # Or with pip
+    python -m venv .venv
+    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+    pip install -e .
     ```
 
-### 2. Configure Your Connection
+### 2. Configuration
 
-    Create `.env` file:
+Create a `.env` file in the project root:
 
     ```bash
-    # Copy the example
-    cp .env.example .env
-
-    # Edit with your details
+    # Required: Your Firefly III API URL and token
     FIREFLY_API_URL=https://your-firefly-instance.com/api/v1
     FIREFLY_API_TOKEN=your_token_here
+
+    # Optional: Enable all entities (default: just accounts). Requires `FIREFLY_DIRECT_MODE=true`
+    # Enabling all entities would lead to about 76 tools being registered and most clients suggest a maximum of 40 tools
     FIREFLY_ENABLED_ENTITIES=all
+
+    # When false, the server will register consolidated tools for dynamic operation. When true, it will register individual tools for each operation
+    FIREFLY_DIRECT_MODE=false
+
+    FIREFLY_LOG_LEVEL=INFO
     ```
+
+**🔑 Getting a Firefly III API Token:**
+1. Log into your Firefly III instance
+2. Go to **Options** → **Profile** → **OAuth**
+3. Click **Create New Token**
+4. Give it a descriptive name (e.g., "MCP Server")
+5. Copy the generated token to your `.env` file
 
 ### 3. Test the Server (Optional)
 
@@ -46,29 +67,9 @@ Get your Firefly III MCP server running in minutes!
 
 ### 4. Configure Your MCP Client
 
-=== "Claude Desktop"
-
-    Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
-
-        ```json
-        {
-          "mcpServers": {
-            "firefly-mcp": {
-              "command": "uv",
-              "args": ["--directory", "/absolute/path/to/firefly-mcp", "run", "firefly-mcp"],
-              "env": {
-                "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
-                "FIREFLY_API_TOKEN": "your_token_here",
-                "FIREFLY_ENABLED_ENTITIES": "all"
-              }
-            }
-          }
-        }
-        ```
-
 === "Cursor IDE"
 
-    Add to workspace/global settings:
+    Add to workspace or global settings:
 
         ```json
         {
@@ -79,7 +80,29 @@ Get your Firefly III MCP server running in minutes!
               "env": {
                 "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
                 "FIREFLY_API_TOKEN": "your_token_here",
-                "FIREFLY_ENABLED_ENTITIES": "all"
+                "FIREFLY_ENABLED_ENTITIES": "all",
+                "FIREFLY_DIRECT_MODE": "false"
+              }
+            }
+          }
+        }
+        ```
+
+=== "VSCode"
+
+    Create an `mcp.json` file in your project root or workspace:
+
+        ```json
+        {
+          "servers": {
+            "firefly-mcp": {
+              "command": "uv",
+              "args": ["--directory", "/absolute/path/to/firefly-mcp", "run", "firefly-mcp"],
+              "env": {
+                "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
+                "FIREFLY_API_TOKEN": "your_token_here",
+                "FIREFLY_ENABLED_ENTITIES": "all",
+                "FIREFLY_DIRECT_MODE": "false"
               }
             }
           }
