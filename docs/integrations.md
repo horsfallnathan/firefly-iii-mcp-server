@@ -29,13 +29,13 @@ This page shows how to configure the Firefly III MCP server with popular MCP cli
 }
 ```
 
-## VSCode with MCP Extension
+## VSCode
 
-Add to your VSCode `settings.json`:
+Create an `mcp.json` file in your project root or workspace:
 
 ```json
 {
-  "mcp.servers": {
+  "servers": {
     "firefly-mcp": {
       "command": "uv",
       "args": [
@@ -47,7 +47,8 @@ Add to your VSCode `settings.json`:
       "env": {
         "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
         "FIREFLY_API_TOKEN": "your_token_here",
-        "FIREFLY_ENABLED_ENTITIES": "all"
+        "FIREFLY_ENABLED_ENTITIES": "all",
+        "FIREFLY_DIRECT_MODE": "false"
       }
     }
   }
@@ -56,7 +57,7 @@ Add to your VSCode `settings.json`:
 
 ## Cursor IDE
 
-Add to workspace or global settings:
+Add to your workspace or global settings:
 
 ```json
 {
@@ -72,7 +73,8 @@ Add to workspace or global settings:
       "env": {
         "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
         "FIREFLY_API_TOKEN": "your_token_here",
-        "FIREFLY_ENABLED_ENTITIES": "all"
+        "FIREFLY_ENABLED_ENTITIES": "all",
+        "FIREFLY_DIRECT_MODE": "false"
       }
     }
   }
@@ -99,7 +101,8 @@ If you prefer not to use UV:
   "env": {
     "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
     "FIREFLY_API_TOKEN": "your_token_here",
-    "FIREFLY_ENABLED_ENTITIES": "all"
+    "FIREFLY_ENABLED_ENTITIES": "all",
+    "FIREFLY_DIRECT_MODE": "false"
   }
 }
 ```
