@@ -20,26 +20,26 @@ Once set up, you can interact with your finances naturally:
 
 !!! example "Natural Language Finance Management"
 
-    === "Claude Desktop"
+    === "Querying Information"
 
         ```
         "Show me my account balances"
         "Create a new expense for $25.50 at Coffee Shop from my Checking Account"
+        "Show me a summary of my spending by category for the last 30 days"
         "What's my budget status for this month?"
         "List all my transactions from last week"
         ```
 
-    === "Cursor IDE"
+    === "Creating Entries"
 
         ```
         "Help me create a transaction rule that automatically categorizes Starbucks purchases as 'Coffee'"
-        "Show me a summary of my spending by category for the last 30 days"
         "Create a new budget category for 'Home Improvement' with a $500 monthly limit"
         ```
 
 ## Getting Started
 
-1. **[Install](installation.md)** the MCP server
+1. **[Setup](setup.md)** the MCP server
 2. **[Configure](configuration.md)** your Firefly III connection
 3. **[Integrate](integrations.md)** with your preferred MCP client
 4. Start managing your finances with AI!
@@ -67,6 +67,6 @@ Once set up, you can interact with your finances naturally:
 
 ## Support
 
-- 📖 [Documentation](https://yourusername.github.io/firefly-mcp/)
-- 🐛 [Issues](https://github.com/yourusername/firefly-mcp/issues)
-- 💬 [Discussions](https://github.com/yourusername/firefly-mcp/discussions)
+- 📖 [Documentation](https://horsfallnathan.github.io/firefly-iii-mcp-server/)
+- 🐛 [Issues](https://github.com/horsfallnathan/firefly-iii-mcp-server/issues)
+- 💬 Use github issues for discussion and support
