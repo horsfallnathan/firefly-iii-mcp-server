@@ -39,7 +39,7 @@ Once set up, you can interact with your finances naturally:
 
 ## Getting Started
 
-1. **[Setup](setup.md)** the MCP server
+1. **[Quickstart](quickstart.md)** the MCP server
 2. **[Configure](configuration.md)** your Firefly III connection
 3. **[Integrate](integrations.md)** with your preferred MCP client
 4. Start managing your finances with AI!

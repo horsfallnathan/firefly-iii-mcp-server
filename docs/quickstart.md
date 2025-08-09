@@ -7,39 +7,20 @@ Get your Firefly III MCP server running in minutes!
 - ✅ Python 3.12+
 - ✅ Running Firefly III instance
 - ✅ Firefly III Personal Access Token
-- ✅ Claude Desktop or Cursor IDE
+- ✅ MCP Client, eg. Claude Desktop or AI-configured IDE
 
 ## 5-Minute Setup
 
-### 1. Choose Your Setup Method
-
-=== "Direct from GitHub (Easiest)"
-
-    No local setup required! Skip to step 3 and use this configuration:
-    
-    ```json
-    {
-      "command": "uvx",
-      "args": ["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"]
-    }
-    ```
-
-=== "Local Development"
+### 1. Download the code
 
     ```bash
     # Clone and setup
-    git clone https://github.com/horsfallnathan/firefly-iii-mcp-server.git
+    git clone https://github.com/horsfallnathan/firefly-iii-mcp-server.git firefly-mcp
     cd firefly-mcp
     uv sync
     ```
 
 ### 2. Configure Your Connection
-
-=== "Direct from GitHub"
-
-    Configuration is done directly in your MCP client config (step 4). No `.env` file needed!
-
-=== "Local Development"
 
     Create `.env` file:
 
@@ -55,15 +36,6 @@ Get your Firefly III MCP server running in minutes!
 
 ### 3. Test the Server (Optional)
 
-=== "Direct from GitHub"
-
-    ```bash
-    # Test with MCP Inspector
-    npx @modelcontextprotocol/inspector uvx --from git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git firefly-mcp
-    ```
-
-=== "Local Development"
-
     ```bash
     # Quick test
     uv run firefly-mcp --help
@@ -77,26 +49,6 @@ Get your Firefly III MCP server running in minutes!
 === "Claude Desktop"
 
     Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
-
-    === "Direct from GitHub"
-
-        ```json
-        {
-          "mcpServers": {
-            "firefly-mcp": {
-              "command": "uvx",
-              "args": ["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"],
-              "env": {
-                "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
-                "FIREFLY_API_TOKEN": "your_token_here",
-                "FIREFLY_ENABLED_ENTITIES": "all"
-              }
-            }
-          }
-        }
-        ```
-
-    === "Local Development"
 
         ```json
         {
@@ -117,26 +69,6 @@ Get your Firefly III MCP server running in minutes!
 === "Cursor IDE"
 
     Add to workspace/global settings:
-
-    === "Direct from GitHub"
-
-        ```json
-        {
-          "mcp.servers": {
-            "firefly-mcp": {
-              "command": "uvx",
-              "args": ["--from", "git+https://github.com/horsfallnathan/firefly-iii-mcp-server.git", "firefly-mcp"],
-              "env": {
-                "FIREFLY_API_URL": "https://your-firefly-instance.com/api/v1",
-                "FIREFLY_API_TOKEN": "your_token_here",
-                "FIREFLY_ENABLED_ENTITIES": "all"
-              }
-            }
-          }
-        }
-        ```
-
-    === "Local Development"
 
         ```json
         {
@@ -219,6 +151,5 @@ FIREFLY_DISABLE_SSL_VERIFY=true
 
 ## What's Next?
 
-- 📚 [Complete Setup Guide](setup.md)
 - 🔧 [Configuration Guide](configuration.md)
 - 🎯 [Available Operations Reference](api/operations.md)
